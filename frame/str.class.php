@@ -2,7 +2,6 @@
 
 class Str
 {
-    use Macroable;
 
     /**
      * The cache of snake-cased words.
@@ -269,7 +268,9 @@ class Str
      */
     public static function plural($value, $count = 2)
     {
-        return Pluralizer::plural($value, $count);
+        return Inflection::pluralize($value);
+//        return Pluralizer::plural($value, $count);
+//        return Pluralizer::plural($value, $count);
     }
 
     /**
@@ -396,7 +397,7 @@ class Str
      */
     public static function singular($value)
     {
-        return Pluralizer::singular($value);
+        return Inflection::singularize($value);
     }
 
     /**

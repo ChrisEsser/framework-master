@@ -30,6 +30,7 @@ class Template
     }
 
     /** Display the template *
+     * @param int $renderHeader
      */
     public function render($renderHeader = 1)
     {

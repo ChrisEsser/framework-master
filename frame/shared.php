@@ -1,6 +1,5 @@
 <?php
 
-
 spl_autoload_register( function( $className ) {
 
     $className = strtolower($className);
@@ -23,7 +22,6 @@ spl_autoload_register( function( $className ) {
         echo 'Class not found';
         die;
     }
-
 
 });
 
@@ -213,6 +211,9 @@ function displaySiteErrors()
 
         $html .= '</div>';
 
+        // unset the global variable that holds the errors after displaying
+        unset($_SESSION['frame']['site_errors']);
+
         return $html;
 
     } else {
@@ -238,61 +239,9 @@ function getFieldErrors()
 }
 
 
-function resolveUploadPath($hash, $type)
-{
-    if ($type == 'image') {
-        $baseDir = IMAGE_DIR;
-        $ext = '.jpg';
-    } else if ($type == 'track') {
-        $baseDir = TRACK_DIR;
-        $ext = '.mp3';
-    } else if ($type == 'pcm') {
-        $baseDir = PCM_DIR;
-        $ext = '.html';
-    } else if ($type == 'comment') {
-        $baseDir = COMMENT_DIR;
-        $ext = '.html';
-    } else if ($type == 'view') {
-        $baseDir = VIEW_DIR;
-        $ext = '.html';
-    } else {
-        return false;
-    }
-
-    $level1 = substr($hash, 0, 1);
-    $level2 = substr($hash, 1, 2);
-    $level3 = substr($hash, 3, 4);
-
-    if (!file_exists($baseDir . DS . $level1)) {
-        mkdir($baseDir . DS . $level1);
-    }
-    if (!file_exists($baseDir . DS . $level1 . DS . $level2)) {
-        mkdir($baseDir . DS . $level1 . DS . $level2);
-    }
-    if (!file_exists($baseDir . DS . $level1 . DS . $level2 . DS . $level3)) {
-        mkdir($baseDir . DS . $level1 . DS . $level2 . DS . $level3);
-    }
-
-    return $baseDir . DS . $level1 . DS .$level2 . DS . $level3 . DS . $hash . $ext;
-
-}
-
-
 /** Main Call Function **/
 function hook()
 {
-
-//    echo '<pre>';
-//    $user = User::findOne(['username' => 'esser32@gmail.com']);
-//    $api = $user->getApi();
-//
-////    $user->getApis();
-////    $api = Api::findOne(['user_id' => $user->id]);
-//
-//
-//    var_dump($user);
-//    var_dump($api);
-//    die;
 
     // load the router
     $router = new Router();
