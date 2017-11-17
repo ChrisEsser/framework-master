@@ -4,10 +4,3 @@
 <p><?=(empty(getenv('DB_HOST')) || (getenv('DB_NAME'))) ? 'Database not initialized' : 'Database initialized'?></p>
 
 </div>
-
-
-
-
-
-
-
