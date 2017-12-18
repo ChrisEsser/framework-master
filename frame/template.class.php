@@ -38,6 +38,8 @@ class Template
         extract($this->variables);
         $viewsRoot = ROOT . DS . 'app' . DS . 'views' . DS;
 
+        $controller = strtolower($this->_controller);
+        $action = strtolower($this->_action);
 
         // site default header
         if ($renderHeader == 1 && file_exists($viewsRoot . 'index.header.php')) {
@@ -46,19 +48,19 @@ class Template
 
 
         // check for a view file matching the action
-        if (file_exists($viewsRoot . $this->_controller . DS . $this->_action  . '.php')) {
+        if (file_exists($viewsRoot . $controller . DS . $action  . '.php')) {
 
             // controller global header
-            if (file_exists($viewsRoot . $this->_controller . DS . 'header'  . '.php')) {
-                include($viewsRoot . $this->_controller . DS . 'header'  . '.php');
+            if (file_exists($viewsRoot . $controller . DS . 'header'  . '.php')) {
+                include($viewsRoot . $controller . DS . 'header'  . '.php');
             }
 
             // display this action's view
-            include($viewsRoot . $this->_controller . DS . $this->_action  . '.php');
+            include($viewsRoot . $controller . DS . $action  . '.php');
 
             // controller global footer
-            if (file_exists($viewsRoot . $this->_controller . DS . 'footer'  . '.php')) {
-                include($viewsRoot . $this->_controller . DS . 'footer'  . '.php');
+            if (file_exists($viewsRoot . $controller . DS . 'footer'  . '.php')) {
+                include($viewsRoot . $controller . DS . 'footer'  . '.php');
             }
 
         } else {
